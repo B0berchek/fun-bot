@@ -63,7 +63,14 @@ async def grow(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 # создание бота
-builder = ApplicationBuilder().token(config["token"]).connect_timeout(30).read_timeout(30)
+builder = (
+    ApplicationBuilder()
+    .token(config["token"])
+    .proxy("socks5://123.45.67.89:1080")
+    .get_updates_proxy("socks5://123.45.67.89:1080")
+    .connect_timeout(30)
+    .read_timeout(30)
+)
 
 app = builder.build()
 app.add_handler(CommandHandler("grow", grow))
